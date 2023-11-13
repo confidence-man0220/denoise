@@ -21,9 +21,6 @@ def _vol_denoise(train, f, model, data):
         model = linear_model.LinearRegression(copy_X=False,
                                               fit_intercept=True,
                                               n_jobs=-1, normalize=False)
-    elif model == 'mlp':
-        model = MLPRegressor(activation='identity',
-                             random_state=1, max_iter=50)
 
     elif model == 'ridge':
         model = linear_model.Ridge()
@@ -31,7 +28,7 @@ def _vol_denoise(train, f, model, data):
     elif model == 'lasso':
         model = linear_model.Lasso(max_iter=50)
     else:
-        print('Model not supported. Choose from: ols, ridge, lasso or mlp')
+        print('Model not supported. Choose from: ols, ridge or lasso')
 
     cur_X, Y = _vol_split(train, f)
     model.fit(cur_X.T, Y.T)
